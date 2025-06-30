@@ -6,7 +6,6 @@
 1. `index.html` - Main application interface
 2. `app.js` - Application logic and ARXML processing
 3. `style.css` - Styling and responsive design
-4. `README_SAFE.md` - Rename to `README.md` on GitHub
 5. `LICENSE` - MIT License
 6. `.gitignore` - Prevents uploading sensitive files
 

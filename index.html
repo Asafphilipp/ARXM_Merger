@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOSAR ARXML Merger</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header__content">
+                <h1 class="header__title">AUTOSAR ARXML Merger</h1>
+                <p class="header__subtitle">Robuster ARXML-Merger für komplette und fehlerfreie Zusammenführung</p>
+                <div class="header__version">Version 1.0.0</div>
+            </div>
+        </header>
+
+        <!-- File Input Section -->
+        <section class="file-section card">
+            <div class="card__body">
+                <h2>Datei-Eingabe</h2>
+                
+                <div class="file-input-area" id="fileInputArea">
+                    <div class="file-dropzone" id="fileDropzone">
+                        <div class="dropzone-content">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <h3>ARXML-Dateien hier ablegen</h3>
+                            <p>oder <button class="btn btn--primary" id="fileSelectBtn">Dateien auswählen</button></p>
+                            <small>Unterstützte Formate: .arxml, .xml</small>
+                        </div>
+                    </div>
+                    <input type="file" id="fileInput" multiple accept=".arxml,.xml" style="display: none;">
+                </div>
+
+                <div class="file-list" id="fileList">
+                    <!-- Files will be dynamically added here -->
+                </div>
+
+                <div class="file-controls" id="fileControls" style="display: none;">
+                    <button class="btn btn--secondary" id="clearAllBtn">Alle entfernen</button>
+                    <div class="file-priority-info">
+                        <small>Ziehen Sie Dateien zum Ändern der Prioritätsreihenfolge</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Statistics Section -->
+        <section class="stats-section card" id="statsSection" style="display: none;">
+            <div class="card__body">
+                <h2>📊 Live-Statistiken</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">📁</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="fileCount">0</div>
+                            <div class="stat-label">Dateien</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon">🧩</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="elementCount">0</div>
+                            <div class="stat-label">Elemente</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon">💾</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalSize">0 MB</div>
+                            <div class="stat-label">Gesamtgröße</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="processingSpeed">0 MB/s</div>
+                            <div class="stat-label">Geschwindigkeit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-section" id="previewSection">
+                    <h3>🔍 Smart Preview</h3>
+                    <div class="preview-content" id="previewContent">
+                        <p>Dateien hinzufügen für Vorschau...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Settings (Simplified) -->
+        <section class="quick-settings card" id="quickSettings" style="display: none;">
+            <div class="card__body">
+                <h2>⚙️ Einstellungen</h2>
+
+                <div class="settings-row">
+                    <label class="setting-item">
+                        <input type="checkbox" id="autoBackup" checked>
+                        <span class="checkmark"></span>
+                        💾 Auto-Backup erstellen
+                    </label>
+
+                    <label class="setting-item">
+                        <input type="checkbox" id="generateReport" checked>
+                        <span class="checkmark"></span>
+                        📊 Merge-Report generieren
+                    </label>
+
+                    <label class="setting-item">
+                        <input type="checkbox" id="autoDownload" checked>
+                        <span class="checkmark"></span>
+                        📥 Automatischer Download
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Processing Section -->
+        <section class="processing-section card">
+            <div class="card__body">
+                <h2>Verarbeitung</h2>
+                
+                <div class="processing-controls">
+                    <button class="btn btn--primary btn--lg" id="startMergingBtn" disabled>
+                        <span id="mergingBtnText">Zusammenführung starten</span>
+                    </button>
+                    <button class="btn btn--secondary" id="cancelBtn" style="display: none;">Abbrechen</button>
+                </div>
+
+                <div class="processing-status" id="processingStatus" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+                    
+                    <div class="status-messages" id="statusMessages">
+                        <div class="status-message">Bereit zum Start...</div>
+                    </div>
+
+                    <div class="processing-stats" id="processingStats">
+                        <div class="stat-item">
+                            <span class="stat-label">Dateien verarbeitet:</span>
+                            <span class="stat-value" id="filesProcessed">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Elemente zusammengeführt:</span>
+                            <span class="stat-value" id="elementsMerged">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Konflikte aufgelöst:</span>
+                            <span class="stat-value" id="conflictsResolved">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section card" id="resultsSection" style="display: none;">
+            <div class="card__body">
+                <h2>Ergebnisse</h2>
+                
+                <div class="result-status" id="resultStatus">
+                    <!-- Status will be dynamically added -->
+                </div>
+
+                <div class="download-section">
+                    <h3>Downloads</h3>
+                    <div class="download-buttons">
+                        <button class="btn btn--primary" id="downloadMergedBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Zusammengeführte ARXML-Datei
+                        </button>
+                        <button class="btn btn--secondary" id="downloadMergeReportBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                            </svg>
+                            Merge-Bericht
+                        </button>
+                        <button class="btn btn--secondary" id="downloadValidationReportBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3l8-8"></path>
+                                <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9s4.03-9 9-9c1.34 0 2.61.29 3.76.82"></path>
+                            </svg>
+                            Validierungsbericht
+                        </button>
+                        <button class="btn btn--secondary" id="downloadConflictLogBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14,2 14,8 20,8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10,9 9,9 8,9"></polyline>
+                            </svg>
+                            Konflikt-Log
+                        </button>
+                    </div>
+                </div>
+
+                <div class="summary-stats" id="summaryStats">
+                    <!-- Summary statistics will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Features Panel -->
+        <section class="advanced-section card">
+            <div class="card__body">
+                <div class="advanced-header" id="advancedHeader">
+                    <h2>Erweiterte Optionen</h2>
+                    <button class="btn btn--secondary btn--sm" id="toggleAdvanced">
+                        <span id="advancedToggleText">Anzeigen</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="advancedToggleIcon">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="advanced-content" id="advancedContent" style="display: none;">
+                    <div class="config-grid">
+                        <div class="config-group">
+                            <h3>AUTOSAR Element-Filterung</h3>
+                            <div class="form-group">
+                                <label class="form-label">Signal-Typen</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" checked> ISignal</label>
+                                    <label><input type="checkbox" checked> ISignalGroup</label>
+                                    <label><input type="checkbox" checked> SystemSignal</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Komponenten</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" checked> SwComponentType</label>
+                                    <label><input type="checkbox" checked> CompositionType</label>
+                                    <label><input type="checkbox" checked> ApplicationSwComponentType</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="config-group">
+                            <h3>Validierungsoptionen</h3>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="schemaValidation" checked> Schema-Validierung
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="referenceIntegrity" checked> Referenz-Integritätsprüfung
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="customValidation"> Benutzerdefinierte Validierungsregeln
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="config-group">
+                            <h3>Debug-Optionen</h3>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="verboseLogging"> Ausführliche Protokollierung
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="performanceMonitoring"> Performance-Überwachung
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="memoryTracking"> Speicherverbrauch-Tracking
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

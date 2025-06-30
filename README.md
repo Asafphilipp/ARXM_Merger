@@ -1,4 +1,4 @@
-# 🚗 ARXML Merger Tool
+#  ARXML Merger Tool
 
 **Professional AUTOSAR XML File Merger for Automotive Development**
 
@@ -13,14 +13,14 @@ The ARXML Merger Tool is a professional-grade web application designed for autom
 
 ### ✨ Key Features
 
-- **🔥 Fully Automatic Operation** - No configuration needed, just drag & drop
-- **📊 Real-time Statistics** - Live preview of signals, clusters, and networks
-- **🚀 High Performance** - Handles large files and hundreds of files
-- **🌐 Complete Network Support** - CAN, CAN-FD, Ethernet VLAN, FlexRay, LIN
-- **🛡️ 100% Signal Preservation** - No data loss guaranteed
-- **🔧 Vector Tools Ready** - CANape/CANoe compatible output
+- ** Fully Automatic Operation** - No configuration needed, just drag & drop
+- ** Real-time Statistics** - Live preview of signals, clusters, and networks
+- ** High Performance** - Handles large files and hundreds of files
+- ** Complete Network Support** - CAN, CAN-FD, Ethernet VLAN, FlexRay, LIN
+- **🛡 100% Signal Preservation** - No data loss guaranteed
+- ** Vector Tools Ready** - CANape/CANoe compatible output
 
-## 🚀 Quick Start
+##  Quick Start
 
 1. **Open the Tool**: Open `index.html` in your web browser
 2. **Add Files**: Drag & drop your XML files or click to select
@@ -29,31 +29,31 @@ The ARXML Merger Tool is a professional-grade web application designed for autom
 
 **That's it!** No configuration, no complex settings - just works.
 
-## 🏗️ Automotive Features
+##  Automotive Features
 
-### 🌐 Network Support
+###  Network Support
 - **CAN Clusters** with baudrate detection
 - **CAN-FD Clusters** with FD-baudrate support  
 - **Ethernet Clusters** with VLAN configuration
 - **FlexRay Clusters** fully supported
 - **LIN Clusters** complete implementation
 
-### 📡 Signal Handling
+###  Signal Handling
 - **I-SIGNAL** elements with length and init values
 - **I-SIGNAL-GROUP** structures preserved
 - **I-PDU** (Protocol Data Units) lossless merging
 - **FRAME** elements (CAN/Ethernet/FlexRay/LIN)
 
-### 🔧 Vector Tools Compatibility
+###  Vector Tools Compatibility
 - **CANape Ready**: All signals have correct LENGTH attributes
 - **CANoe Ready**: Proper cluster configurations and baudraten
 - **FIBEX Structure**: Maintained for Vector tool recognition
 - **Network Endpoints**: Communication connectors preserved
 
-## 📊 Live Statistics Dashboard
+##  Live Statistics Dashboard
 
 ```
-🚗 AUTOMOTIVE OVERVIEW
+ AUTOMOTIVE OVERVIEW
 Signals: XXX | 
 
 
@@ -62,27 +62,27 @@ Signals: XXX |
 • CANoe: ✅ Ready
 ```
 
-## ⚡ Performance Features
+##  Performance Features
 
 - **Parallel Processing**: Up to 4 files simultaneously
 - **Memory Streaming**: For large files
 - **Chunked Processing**: Prevents memory overflow
 - **Auto Garbage Collection**: Optimized memory management
 
-## 🎯 Cool Features
+##  Cool Features
 
-### ⌨️ Keyboard Shortcuts
+###  Keyboard Shortcuts
 - `Ctrl+O` → Open files
 - `Ctrl+Enter` → Start merge
 - `Ctrl+S` → Download merged file
 - `Esc` → Clear all files
 
-### 📋 Copy & Paste Support
+###  Copy & Paste Support
 - Copy files from Windows Explorer
 - Paste directly into the tool
 - Automatic XML file detection
 
-### 📁 Batch Processing
+###  Batch Processing
 - **Folder Processing**: Process entire project folders
 - **Recursive Search**: Finds all XML files automatically
 - **Multi-Project Support**: Handle multiple projects at once

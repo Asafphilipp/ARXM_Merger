@@ -54,13 +54,8 @@ The ARXML Merger Tool is a professional-grade web application designed for autom
 
 ```
 🚗 AUTOMOTIVE OVERVIEW
-Signals: XXX | Clusters: X
-Networks: Network_01, Network_02, Network_03
+Signals: XXX | 
 
-🌐 DETECTED NETWORKS:
-• Network_01 (CAN-FD) - 500000 bps / FD: 2000000 bps
-• Network_02 (CAN-FD) - 500000 bps / FD: 2000000 bps  
-• Network_03 (ETHERNET) - Multiple VLANs
 
 🔧 VECTOR TOOLS COMPATIBILITY:
 • CANape: ✅ Ready
